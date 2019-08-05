@@ -17,8 +17,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.imooc.security</groupId>
-            <artifactId>imooc-security-core</artifactId>
+            <groupId>com.tx.security</groupId>
+            <artifactId>security_core</artifactId>
             <version>${mercury.security.version}</version>
         </dependency>
     </dependencies>
