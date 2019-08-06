@@ -16,8 +16,8 @@
     <version>1.0-SNAPSHOT</version>
     <dependencies>
         <dependency>
-            <groupId>com.imooc.security</groupId>
-            <artifactId>imooc-security-browser</artifactId>
+            <groupId>com.tx.security</groupId>
+            <artifactId>security_broswer</artifactId>
             <version>${mercury.security.version}</version>
         </dependency>
         <dependency>
@@ -45,6 +45,11 @@
         <dependency>
             <groupId>com.github.tomakehurst</groupId>
             <artifactId>wiremock</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.1.7.RELEASE</version>
         </dependency>
     </dependencies>
 
