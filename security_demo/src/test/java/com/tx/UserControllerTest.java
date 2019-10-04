@@ -39,6 +39,11 @@ public class UserControllerTest {
     @Test
     public void whenQuerySuccess() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/user")
+//                .param("userName","mercury")
+                //输入参数为对象时
+                .param("userName","stt")
+                .param("age","12")
+                .param("ageTo","90")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value("3"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
