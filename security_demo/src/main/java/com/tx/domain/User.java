@@ -1,11 +1,24 @@
 package com.tx.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.io.Serializable;
 
 /**
  *
  */
 public class User implements Serializable {
+
+    public interface CommonJsonView{
+
+    }
+
+    public interface UserInfoJsonView extends CommonJsonView{
+
+    }
+
+
+
     private String userName;
     private String password;
 
@@ -14,6 +27,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    @JsonView(CommonJsonView.class)
     public String getUserName() {
         return userName;
     }
@@ -22,6 +36,7 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
+    @JsonView(UserInfoJsonView.class)
     public String getPassword() {
         return password;
     }

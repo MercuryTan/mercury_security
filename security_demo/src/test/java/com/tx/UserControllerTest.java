@@ -38,7 +38,7 @@ public class UserControllerTest {
 
     @Test
     public void whenQuerySuccess() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/user")
+        String str = mockMvc.perform(MockMvcRequestBuilders.get("/user")
 //                .param("userName","mercury")
                 //输入参数为对象时
                 .param("userName","stt")
@@ -50,7 +50,20 @@ public class UserControllerTest {
                 .param("sort","age,desc")*/
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value("3"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+        .andReturn().getResponse().getContentAsString(); //获取返回值
+        System.out.println(str);
+    }
+
+    @Test
+    public void whenGetInfoSuccess() throws Exception {
+        String str =
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/getInfo/1/55")
+        .contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andReturn().getResponse().getContentAsString();
+
+        System.out.println(str);
     }
 
 }

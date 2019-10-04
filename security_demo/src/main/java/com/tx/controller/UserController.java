@@ -1,15 +1,13 @@
 package com.tx.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.tx.domain.User;
 import com.tx.domain.UserQueryCondition;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 /*import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;*/
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
@@ -22,6 +20,7 @@ import java.util.List;
 public class UserController {
 
     @RequestMapping(value = "/user",method = RequestMethod.GET)
+    @JsonView(User.CommonJsonView.class)
     public List<User> queryAll(
 //            @RequestParam(name = "userName",required = false,defaultValue = "hhhhhh") String nickName,
             UserQueryCondition condition/*,
@@ -39,5 +38,14 @@ public class UserController {
         users.add(new User("stt","111111"));
         users.add(new User("tx","111111"));
         return users;
+    }
+
+    @RequestMapping("/user/getInfo/{id:\\d+}/{age}")
+    @JsonView(User.UserInfoJsonView.class)
+    public User getOneInfo(@PathVariable(name="id") String userId,@PathVariable String age){
+        System.out.println(userId);
+        System.out.println(age);
+        User user = new User("mercury","111111");
+        return user;
     }
 }
