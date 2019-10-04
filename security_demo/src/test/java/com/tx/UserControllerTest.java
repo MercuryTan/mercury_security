@@ -44,6 +44,10 @@ public class UserControllerTest {
                 .param("userName","stt")
                 .param("age","12")
                 .param("ageTo","90")
+                //分页参数
+                /*.param("size","15")
+                .param("page","2")
+                .param("sort","age,desc")*/
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value("3"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
