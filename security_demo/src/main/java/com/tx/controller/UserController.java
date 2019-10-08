@@ -7,20 +7,24 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 /*import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;*/
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  *
  */
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
-    @RequestMapping(value = "/user",method = RequestMethod.GET)
     @JsonView(User.CommonJsonView.class)
+    @GetMapping
     public List<User> queryAll(
 //            @RequestParam(name = "userName",required = false,defaultValue = "hhhhhh") String nickName,
             UserQueryCondition condition/*,
@@ -40,12 +44,27 @@ public class UserController {
         return users;
     }
 
-    @RequestMapping("/user/getInfo/{id:\\d+}/{age}")
     @JsonView(User.UserInfoJsonView.class)
+    @GetMapping("/getInfo/{id:\\d+}/{age}")
     public User getOneInfo(@PathVariable(name="id") String userId,@PathVariable String age){
         System.out.println(userId);
         System.out.println(age);
         User user = new User("mercury","111111");
+        return user;
+    }
+
+//    @JsonView(User.CommonJsonView.class)
+    @PostMapping
+    public User createUser(@RequestBody @Valid User user, BindingResult errors){
+        if(errors.hasErrors()){ // 保存错误
+            List list = errors.getAllErrors();
+            System.out.println("have error");
+        }
+        System.out.println(user.getUserName());
+        System.out.println(user.getPassword());
+        System.out.println(user.getBirthday());
+        user.setId("1");
+        user.setBirthday(new Date());
         return user;
     }
 }
