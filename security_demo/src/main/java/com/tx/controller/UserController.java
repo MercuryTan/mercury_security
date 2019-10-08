@@ -3,6 +3,7 @@ package com.tx.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.tx.domain.User;
 import com.tx.domain.UserQueryCondition;
+import com.tx.exception.UserNotExistException;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 /*import org.springframework.data.domain.Pageable;
@@ -83,5 +84,10 @@ public class UserController {
         //调用修改的操作
         user.setId(id);
         return user;
+    }
+
+    @GetMapping("/{id:\\d+}")
+    public User exceptionTest(@PathVariable String id){
+        throw new UserNotExistException(id);
     }
 }
