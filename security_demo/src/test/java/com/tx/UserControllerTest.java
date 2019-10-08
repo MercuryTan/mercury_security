@@ -79,4 +79,20 @@ public class UserControllerTest {
 
     }
 
+    @Test
+    public void whenUpdateSuccess() throws Exception {
+        long birthday = new Date().getTime();
+        String content = "{ \"id\":\"1\", \"userName\":\"\",\"password\":\"222\",\"birthday\":\""+birthday+" \"}";
+        String returnContent =  mockMvc.perform(MockMvcRequestBuilders.put("/user/1")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(content)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("1"))
+                .andReturn().getResponse().getContentAsString();
+
+        //System.out.println("--"+returnContent);
+
+    }
+
 }

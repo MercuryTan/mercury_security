@@ -1,8 +1,10 @@
 package com.tx.domain;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.tx.validation.MyValidation;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,10 +21,14 @@ public class User implements Serializable {
 
     }
 
-    @NotBlank
+    @NotBlank(message = "用户名不能为空")
     private String userName;
+
+    @NotNull
     private String password;
     private String id;
+
+    @MyValidation(message = "这是我的校验注解呀")
     private Date birthday;
 
 
@@ -32,6 +38,13 @@ public class User implements Serializable {
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    public User(String userName, String password, String id, Date birthday) {
+        this.userName = userName;
+        this.password = password;
+        this.id = id;
+        this.birthday = birthday;
     }
 
     @JsonView(CommonJsonView.class)
