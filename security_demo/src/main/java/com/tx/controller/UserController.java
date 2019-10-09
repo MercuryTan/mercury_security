@@ -88,6 +88,7 @@ public class UserController {
 
     @GetMapping("/{id:\\d+}")
     public User exceptionTest(@PathVariable String id){
-        throw new UserNotExistException(id);
+//        throw new UserNotExistException(id);
+        return new User("mercury","11111");
     }
 }
