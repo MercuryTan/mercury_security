@@ -1,4 +1,4 @@
-package com.tx.controller;
+package com.tx.web.controller;
 
 import com.tx.exception.UserNotExistException;
 import org.springframework.http.HttpStatus;

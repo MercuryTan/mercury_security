@@ -1,6 +1,4 @@
-package com.tx.filter;
-
-import org.springframework.stereotype.Component;
+package com.tx.web.filter;
 
 import javax.servlet.*;
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package com.tx.config;
 
-import com.tx.filter.TimeFilter;
-import com.tx.interceptor.TimeInterceptor;
+import com.tx.web.filter.TimeFilter;
+import com.tx.web.interceptor.TimeInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

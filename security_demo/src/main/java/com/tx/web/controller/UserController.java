@@ -1,15 +1,13 @@
-package com.tx.controller;
+package com.tx.web.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.tx.domain.User;
 import com.tx.domain.UserQueryCondition;
-import com.tx.exception.UserNotExistException;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 /*import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;*/
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 
