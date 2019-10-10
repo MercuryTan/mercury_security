@@ -3,6 +3,9 @@ package com.tx.web.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.tx.domain.User;
 import com.tx.domain.UserQueryCondition;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 /*import org.springframework.data.domain.Pageable;
@@ -21,10 +24,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
+@Api(value = "用户控制器")
 public class UserController {
 
     @JsonView(User.CommonJsonView.class)
     @GetMapping
+    @ApiOperation(value = "获取所有用户信息" , notes = "返回的是所有用户")
     public List<User> queryAll(
 //            @RequestParam(name = "userName",required = false,defaultValue = "hhhhhh") String nickName,
             UserQueryCondition condition/*,
@@ -85,7 +90,7 @@ public class UserController {
     }
 
     @GetMapping("/{id:\\d+}")
-    public User exceptionTest(@PathVariable String id){
+    public User exceptionTest(@ApiParam("用户id") @PathVariable String id){
 //        throw new UserNotExistException(id);
         return new User("mercury","11111");
     }
