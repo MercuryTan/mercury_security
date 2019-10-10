@@ -19,10 +19,10 @@ import java.util.List;
  */
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new TimeInterceptor());
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new TimeInterceptor());
+//    }
 
 
     /**
@@ -31,7 +31,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      * @param  * @Param:
      * @return org.springframework.boot.web.servlet.FilterRegistrationBean
     **/
-    @Bean
+   /* @Bean
     public FilterRegistrationBean filterRegistrationBean(){
         FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
         TimeFilter timeFilter = new TimeFilter();
@@ -43,7 +43,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 
         return filterRegistration;
-    }
+    }*/
 
 
 }
