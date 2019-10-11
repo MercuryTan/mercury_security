@@ -11,6 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>security_broswer</artifactId>
+    <!--<version>${mercury.security.version}</version>-->
 
     <dependencies>
         <dependency>
@@ -18,14 +19,19 @@
             <artifactId>security_core</artifactId>
             <version>${mercury.security.version}</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>1.2.2</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <version>1.2.4.RELEASE</version>
         </dependency>
     </dependencies>
 
