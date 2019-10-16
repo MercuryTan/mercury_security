@@ -10,6 +10,10 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 /*import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;*/
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -93,5 +97,12 @@ public class UserController {
     public User exceptionTest(@ApiParam("用户id") @PathVariable String id){
 //        throw new UserNotExistException(id);
         return new User("mercury","11111");
+    }
+
+
+    @GetMapping("/me")
+    public UserDetails getMeInfo(/*2.Authentication authentication*/ @AuthenticationPrincipal UserDetails user){
+//       1: return SecurityContextHolder.getContext().getAuthentication();
+        return user;
     }
 }
