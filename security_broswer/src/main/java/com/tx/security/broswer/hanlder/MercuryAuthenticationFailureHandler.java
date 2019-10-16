@@ -21,6 +21,14 @@ public class MercuryAuthenticationFailureHandler implements AuthenticationFailur
 
     ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * @author tx
+     * @description  目前是登录失败直接返回json数据到前台。如果有需要区别是返回json还是页面，可参考MercuryAuthenticationSuccessHandler.java
+     * @param  * @Param: request
+     * @Param: response
+     * @Param: exception
+     * @return void
+    **/
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
