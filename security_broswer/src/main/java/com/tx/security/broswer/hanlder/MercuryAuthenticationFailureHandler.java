@@ -1,8 +1,12 @@
 package com.tx.security.broswer.hanlder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tx.security.broswer.enumation.JsonType;
+import com.tx.security.broswer.pojo.MercuryProperty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -17,7 +21,9 @@ import java.io.IOException;
  * @version:
  */
 @Component("mercuryAuthenticationFailureHandler")
-public class MercuryAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class MercuryAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+    @Autowired
+    MercuryProperty mercuryProperty;
 
     ObjectMapper mapper = new ObjectMapper();
 
@@ -31,8 +37,17 @@ public class MercuryAuthenticationFailureHandler implements AuthenticationFailur
     **/
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        response.setContentType("application/json;charset=UTF-8");
+      /*  response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(mapper.writeValueAsString(exception));
+*/
+        //获取当前系统中配置的type
+        JsonType jsonType = mercuryProperty.getBroswer().getJsonType();
+        if(JsonType.JSON.equals(jsonType)){
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(mapper.writeValueAsString(exception.getMessage()));
+        }else{
+            super.onAuthenticationFailure(request,response,exception);
+        }
     }
 
 }

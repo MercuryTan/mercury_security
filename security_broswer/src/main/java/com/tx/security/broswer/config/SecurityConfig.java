@@ -1,5 +1,6 @@
 package com.tx.security.broswer.config;
 
+import com.tx.security.broswer.filter.ValidateImageCodeFilter;
 import com.tx.security.broswer.pojo.MercuryProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  *
@@ -26,6 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     MercuryProperty mercuryProperty;
 
+    @Autowired
+    ValidateImageCodeFilter validateImageCodeFilter;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -33,14 +38,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http.addFilterBefore(validateImageCodeFilter,UsernamePasswordAuthenticationFilter.class)
+             .formLogin()
                 .loginPage("/authentication/login")
                 .loginProcessingUrl("/login/form")
                 .successHandler(mercuryAuthenticationSuccessHandler)
                 .failureHandler(mercuryAuthenticationFailureHandler)
             .and()
                 .authorizeRequests()
-                    .antMatchers("/authentication/login",mercuryProperty.getBroswer().getLoginPage()).permitAll()
+                    .antMatchers("/generate/image-code","/authentication/login",mercuryProperty.getBroswer().getLoginPage()).permitAll()
                     .anyRequest() .authenticated()
             .and()
                 .csrf().disable();
