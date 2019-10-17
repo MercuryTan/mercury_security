@@ -1,4 +1,4 @@
-package com.tx.security.broswer.pojo;
+package com.tx.security.domain;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDate;

@@ -1,9 +1,10 @@
-package com.tx.security.broswer.controller;
+package com.tx.security.validate;
 
-import com.sun.imageio.plugins.common.ImageUtil;
-import com.tx.security.broswer.pojo.ImageCode;
+import com.tx.security.domain.ImageCode;
+import com.tx.security.properties.MercuryProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ import java.util.Random;
 
 /**
  * @author ：tx
- * @description：
+ * @description： 生成验证码
  * @modified By：
  * @version:
  */
@@ -28,6 +29,8 @@ public class ImageCodeController {
 
     public static final String SESSION_IMAGE_CODE_KEY = "IMAGE_CODE_KEY";
 
+    @Autowired
+    MercuryProperty mercuryProperty;
 
     @GetMapping("/generate/image-code")
     public void  generateImageCode(HttpSession session, HttpServletResponse response) throws IOException {
@@ -40,10 +43,12 @@ public class ImageCodeController {
         ImageIO.write(imageCode.getBufferedImage(),"JPEG",response.getOutputStream());
     }
 
-    private ImageCode createImageCode() {
+
+
+    public  ImageCode createImageCode() {
         // 图片的宽高（像素）
-        int width = 67;
-        int height = 23;
+        int width = mercuryProperty.getCode().getImageCode().getWidth();
+        int height = mercuryProperty.getCode().getImageCode().getHeight();
         // 生成图片对象
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
@@ -64,7 +69,7 @@ public class ImageCodeController {
 
         // 生成四位随机数
         String sRand = "";
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < mercuryProperty.getCode().getImageCode().getCodeLength(); i++) {
             String rand = String.valueOf(random.nextInt(10));
             sRand += rand;
             g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
@@ -73,7 +78,7 @@ public class ImageCodeController {
         g.dispose();
 
         // 60秒有效
-        return new ImageCode(image, sRand, 60);
+        return new ImageCode(image, sRand, mercuryProperty.getCode().getImageCode().getExpireTime());
     }
 
     /**
@@ -82,7 +87,7 @@ public class ImageCodeController {
      * @param bc
      * @return
      */
-    private Color getRandColor(int fc, int bc) {
+    private static Color getRandColor(int fc, int bc) {
         Random random = new Random();
         if(fc > 255) {
             fc = 255;

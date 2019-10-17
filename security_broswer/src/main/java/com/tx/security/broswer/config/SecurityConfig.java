@@ -1,7 +1,7 @@
 package com.tx.security.broswer.config;
 
-import com.tx.security.broswer.filter.ValidateImageCodeFilter;
-import com.tx.security.broswer.pojo.MercuryProperty;
+import com.tx.security.properties.MercuryProperty;
+import com.tx.security.validate.ValidateImageCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

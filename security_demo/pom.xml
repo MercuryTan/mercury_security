@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.tx.security</groupId>
             <artifactId>security_broswer</artifactId>
-            <version>${mercury.security.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

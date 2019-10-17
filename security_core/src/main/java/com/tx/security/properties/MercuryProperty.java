@@ -1,4 +1,4 @@
-package com.tx.security.broswer.pojo;
+package com.tx.security.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
@@ -15,7 +15,9 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:mercury.properties")
 public class MercuryProperty {
 
-    private BroswerProperty broswer;
+    private BroswerProperty broswer = new BroswerProperty();
+
+    private ValidateCodeProperty code = new ValidateCodeProperty();
 
     public BroswerProperty getBroswer() {
         return broswer;
@@ -23,5 +25,13 @@ public class MercuryProperty {
 
     public void setBroswer(BroswerProperty broswer) {
         this.broswer = broswer;
+    }
+
+    public ValidateCodeProperty getCode() {
+        return code;
+    }
+
+    public void setCode(ValidateCodeProperty code) {
+        this.code = code;
     }
 }

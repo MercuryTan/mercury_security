@@ -17,7 +17,7 @@
         <dependency>
             <groupId>com.tx.security</groupId>
             <artifactId>security_core</artifactId>
-            <version>${mercury.security.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--<dependency>
             <groupId>org.springframework.session</groupId>
@@ -39,6 +39,7 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.9.5</version>
         </dependency>
+
     </dependencies>
 
 </project>

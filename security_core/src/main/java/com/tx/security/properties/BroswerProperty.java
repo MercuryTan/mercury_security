@@ -1,6 +1,6 @@
-package com.tx.security.broswer.pojo;
+package com.tx.security.properties;
 
-import com.tx.security.broswer.enumation.JsonType;
+import com.tx.security.enumation.JsonType;
 
 /**
  * @author ：tx

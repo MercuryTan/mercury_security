@@ -1,18 +1,16 @@
 package com.tx.security.broswer.controller;
 
 import com.tx.security.broswer.pojo.LoginErrorMsg;
-import com.tx.security.broswer.pojo.MercuryProperty;
+import com.tx.security.properties.MercuryProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author ：tx

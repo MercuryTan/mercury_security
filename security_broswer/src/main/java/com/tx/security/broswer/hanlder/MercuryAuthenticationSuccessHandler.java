@@ -1,11 +1,10 @@
 package com.tx.security.broswer.hanlder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tx.security.broswer.enumation.JsonType;
-import com.tx.security.broswer.pojo.MercuryProperty;
+import com.tx.security.enumation.JsonType;
+import com.tx.security.properties.MercuryProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 

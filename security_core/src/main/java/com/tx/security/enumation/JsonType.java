@@ -1,4 +1,4 @@
-package com.tx.security.broswer.enumation;
+package com.tx.security.enumation;
 
 public enum JsonType {
     JSON,

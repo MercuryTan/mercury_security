@@ -1,4 +1,4 @@
-package com.tx.security.exception;
+package com.tx.security.validate;
 
 
 import org.springframework.security.core.AuthenticationException;
