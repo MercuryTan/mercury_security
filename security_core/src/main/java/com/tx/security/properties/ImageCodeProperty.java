@@ -25,6 +25,11 @@ public class ImageCodeProperty {
      */
     private int expireTime = 60;
 
+    /**
+     * 需要校验验证码的地址
+     */
+    private String urls;
+
     public int getWidth() {
         return width;
     }
@@ -55,5 +60,13 @@ public class ImageCodeProperty {
 
     public void setExpireTime(int expireTime) {
         this.expireTime = expireTime;
+    }
+
+    public String getUrls() {
+        return urls;
+    }
+
+    public void setUrls(String urls) {
+        this.urls = urls;
     }
 }

@@ -1,9 +1,12 @@
 package com.tx.security.validate;
 
 import com.tx.security.domain.ImageCode;
+import com.tx.security.properties.MercuryProperty;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -15,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author ：tx
@@ -23,15 +28,48 @@ import java.time.LocalDateTime;
  * @version:
  */
 @Component
-public class ValidateImageCodeFilter extends OncePerRequestFilter {
+public class ValidateImageCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     @Autowired
     AuthenticationFailureHandler mercuryAuthenticationFailureHandler;
 
+    @Autowired
+    MercuryProperty mercuryProperty;
+
+    AntPathMatcher pathMatcher = new AntPathMatcher();
+
+    /**
+     * 包含所有需校验 验证码的url
+     */
+    Set<String> urlSet = new HashSet<>();
+
+
+    @Override
+    public void afterPropertiesSet() throws ServletException {
+        super.afterPropertiesSet();
+
+        String urls = mercuryProperty.getCode().getImageCode().getUrls();
+        String [] urlsArray = urls.split(",");
+        for (String s : urlsArray) {
+            urlSet.add(s);
+        }
+
+        urlSet.add("/login/form");
+    }
+
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String targetUrl = request.getRequestURI();
-        if (StringUtils.pathEquals("/login/form", targetUrl) && "POST".equals(request.getMethod())) {
+
+        boolean isExist = false;
+        for (String s : urlSet) {
+            if(pathMatcher.match(targetUrl,s)){
+                isExist = true;
+            }
+        }
+
+        if (isExist) {
             //判断用户输入的验证码和session中生成的是否一致
             try {
                 validateImageCode(request);
