@@ -1,8 +1,10 @@
-package com.tx.security.validate;
+package com.tx.security.validate.image;
 
 import com.tx.security.domain.ImageCode;
 import com.tx.security.properties.MercuryProperty;
+import com.tx.security.validate.basic.IValidateCodeGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,12 +13,14 @@ import java.util.Random;
 /**
  *
  */
+@Component("imageCodeGenerate")
 public class ImageCodeGenerate implements IValidateCodeGenerate {
 
+    @Autowired
     MercuryProperty mercuryProperty;
 
     @Override
-    public ImageCode generateImageCode() {
+    public ImageCode generateCode() {
         // 图片的宽高（像素）
         int width = mercuryProperty.getCode().getImageCode().getWidth();
         int height = mercuryProperty.getCode().getImageCode().getHeight();
@@ -72,12 +76,4 @@ public class ImageCodeGenerate implements IValidateCodeGenerate {
         return new Color(r, g, b);
     }
 
-
-    public MercuryProperty getMercuryProperty() {
-        return mercuryProperty;
-    }
-
-    public void setMercuryProperty(MercuryProperty mercuryProperty) {
-        this.mercuryProperty = mercuryProperty;
-    }
 }

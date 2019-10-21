@@ -2,6 +2,7 @@ package com.tx.security.validate;
 
 import com.tx.security.domain.ImageCode;
 import com.tx.security.properties.MercuryProperty;
+import com.tx.security.validate.image.ImageCodeException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -84,7 +85,7 @@ public class ValidateImageCodeFilter extends OncePerRequestFilter implements Ini
     }
 
     private void validateImageCode(HttpServletRequest request) throws ImageCodeException {
-        Object sessionCodeObj = request.getSession().getAttribute(ImageCodeController.SESSION_IMAGE_CODE_KEY);
+        Object sessionCodeObj = request.getSession().getAttribute(ValidateCodeController.SESSION_IMAGE_CODE_KEY);
         String inputCode = request.getParameter("imageCode");
 
         if (ObjectUtils.isEmpty(sessionCodeObj)) {
@@ -94,7 +95,7 @@ public class ValidateImageCodeFilter extends OncePerRequestFilter implements Ini
         ImageCode imageCode = (ImageCode) sessionCodeObj;
 
         if (!dateDiffer(imageCode)){
-            request.getSession().removeAttribute(ImageCodeController.SESSION_IMAGE_CODE_KEY);
+            request.getSession().removeAttribute(ValidateCodeController.SESSION_IMAGE_CODE_KEY);
             throw new ImageCodeException("验证码失效了！");
         }
 

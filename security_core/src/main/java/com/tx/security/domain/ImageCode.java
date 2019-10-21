@@ -1,9 +1,6 @@
 package com.tx.security.domain;
 
 import java.awt.image.BufferedImage;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @author ：tx
@@ -11,13 +8,9 @@ import java.util.Date;
  * @modified By：
  * @version:
  */
-public class ImageCode {
+public class ImageCode extends ValidateCode {
 
     private BufferedImage bufferedImage;
-
-    private String code;
-
-    private LocalDateTime failureTime;
 
     /**
      * @author tx
@@ -28,9 +21,8 @@ public class ImageCode {
      * @return
     **/
     public ImageCode(BufferedImage bufferedImage, String code, int effectiveTime) {
+        super(code, effectiveTime);
         this.bufferedImage = bufferedImage;
-        this.code = code;
-        this.failureTime = LocalDateTime.now().plusSeconds(effectiveTime);
     }
 
     public BufferedImage getBufferedImage() {
@@ -41,19 +33,4 @@ public class ImageCode {
         this.bufferedImage = bufferedImage;
     }
 
-    public String getCode() {
-        return code;
     }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public LocalDateTime getFailureTime() {
-        return failureTime;
-    }
-
-    public void setFailureTime(LocalDateTime failureTime) {
-        this.failureTime = failureTime;
-    }
-}

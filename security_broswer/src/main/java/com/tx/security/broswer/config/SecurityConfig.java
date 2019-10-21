@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .and()
             .authorizeRequests()
-                    .antMatchers("/generate/image-code","/authentication/login",mercuryProperty.getBroswer().getLoginPage()).permitAll()
+                    .antMatchers("/generate/*","/authentication/login",mercuryProperty.getBroswer().getLoginPage()).permitAll()
                     .anyRequest() .authenticated()
             .and()
                 .csrf().disable();
