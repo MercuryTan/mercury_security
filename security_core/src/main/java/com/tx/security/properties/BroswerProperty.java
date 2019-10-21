@@ -14,6 +14,11 @@ public class BroswerProperty {
 
     private JsonType jsonType;
 
+    /**
+     * cookie的生存时间，默认是3600，可在配置文件中更改
+    **/
+    private int cookieTime = 3600;
+
     public String getLoginPage() {
         return loginPage;
     }
@@ -28,5 +33,13 @@ public class BroswerProperty {
 
     public void setJsonType(JsonType jsonType) {
         this.jsonType = jsonType;
+    }
+
+    public int getCookieTime() {
+        return cookieTime;
+    }
+
+    public void setCookieTime(int cookieTime) {
+        this.cookieTime = cookieTime;
     }
 }

@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(mercuryAuthenticationFailureHandler)
                 .and()
              .rememberMe()
-                .tokenValiditySeconds(3600)
+                .tokenValiditySeconds(mercuryProperty.getBroswer().getCookieTime())
                 .tokenRepository(persistentTokenRepository())
                 .userDetailsService(userDetailsService)
                 .and()
