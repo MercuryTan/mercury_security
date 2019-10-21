@@ -117,8 +117,8 @@ public class ValidateImageCodeFilter extends OncePerRequestFilter implements Ini
     private boolean dateDiffer(ImageCode imageCode) {
         LocalDateTime nowTime = LocalDateTime.now();
         LocalDateTime expireTime = imageCode.getFailureTime();
-        Duration duration = Duration.between(nowTime, expireTime);
-        if(duration.toNanos() > 0){
+        Duration duration = Duration.between(expireTime,nowTime);
+        if(duration.getSeconds() > 0){
             return false;
         }
         return true;

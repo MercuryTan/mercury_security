@@ -7,11 +7,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 /**
  *
@@ -31,9 +36,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     ValidateImageCodeFilter validateImageCodeFilter;
 
+    @Autowired
+    DataSource dataSource;
+
+    @Autowired
+    UserDetailsService userDetailsService;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository(){
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+//        jdbcTokenRepository.setCreateTableOnStartup(true); //在启动时，创建表，所以需要在第一次创建时才开启
+        jdbcTokenRepository.setDataSource(dataSource);
+        return jdbcTokenRepository;
     }
 
     @Override
@@ -44,8 +63,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login/form")
                 .successHandler(mercuryAuthenticationSuccessHandler)
                 .failureHandler(mercuryAuthenticationFailureHandler)
-            .and()
-                .authorizeRequests()
+                .and()
+             .rememberMe()
+                .tokenValiditySeconds(3600)
+                .tokenRepository(persistentTokenRepository())
+                .userDetailsService(userDetailsService)
+                .and()
+            .authorizeRequests()
                     .antMatchers("/generate/image-code","/authentication/login",mercuryProperty.getBroswer().getLoginPage()).permitAll()
                     .anyRequest() .authenticated()
             .and()
