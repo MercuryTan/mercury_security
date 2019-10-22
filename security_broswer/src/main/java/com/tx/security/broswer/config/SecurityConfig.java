@@ -3,6 +3,7 @@ package com.tx.security.broswer.config;
 import com.tx.security.properties.MercuryProperty;
 import com.tx.security.validate.basic.CodeValidateConfig;
 import com.tx.security.validate.image.ImageCodeFilter;
+import com.tx.security.validate.sms.SmsCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,6 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     ImageCodeFilter validateImageCodeFilter;
 
     @Autowired
+    SmsCodeFilter validateSmsCodeFilter;
+
+    @Autowired
     DataSource dataSource;
 
     @Autowired
@@ -62,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(validateImageCodeFilter,UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(validateSmsCodeFilter,UsernamePasswordAuthenticationFilter.class)
              .formLogin()
                 .loginPage("/authentication/login")
                 .loginProcessingUrl("/login/form")
@@ -78,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest() .authenticated()
             .and()
                 .csrf().disable()
-            .apply(codeValidateConfig);
+            .apply(codeValidateConfig)
+            ;
     }
 }

@@ -27,12 +27,6 @@ import org.springframework.stereotype.Component;
 public class CodeValidateConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired
-    ImageCodeFilter validateImageCodeFilter;
-
-    @Autowired
-    SmsCodeFilter validateSmsCodeFilter;
-
-    @Autowired
     UserDetailsService userDetailsService;
 
     @Autowired
@@ -51,17 +45,13 @@ public class CodeValidateConfig extends SecurityConfigurerAdapter<DefaultSecurit
         smsAuthenticationFilter.setAuthenticationFailureHandler(mercuryAuthenticationFailureHandler);
 
 
-        http
-            .addFilterBefore(validateSmsCodeFilter,UsernamePasswordAuthenticationFilter.class)
-            .addFilterAfter(smsAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
-            .authenticationProvider(smsAuthenticationProvider());
-    }
-
-
-    @Bean
-    public SmsAuthenticationProvider smsAuthenticationProvider(){
         SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();
         smsAuthenticationProvider.setUserDetailsService(userDetailsService);
-        return smsAuthenticationProvider;
+
+        http.authenticationProvider(smsAuthenticationProvider)
+            .addFilterAfter(smsAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
+        ;
     }
+
+
 }
