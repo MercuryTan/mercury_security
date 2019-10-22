@@ -12,10 +12,16 @@ public class SecurityConstants {
     **/
     public static final String DEFAULT_UN_AUTHENTICATION_URL = "/authentication/login";
 
+    //~~登录url
     /**
      * 登录表单中的action
      **/
     public static final String DEFAULT_LOGIN_PROCESSING_URL_FORM = "/login/form";
+
+    /**
+     * 短信登录的action
+     **/
+    public static final String DEFAULT_LOGIN_PROCESSING_URL_FORM_MOBILE = "/login/mobile";
 
     /**
      * 默认remember-me中cookie的有效时间
@@ -43,4 +49,7 @@ public class SecurityConstants {
      * 验证码有效时间，默认1小时
      **/
     public static final int CODE_EXPIRE_TIME =  3600;
+
+
+
 }
