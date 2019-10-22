@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 @Component("imageValidateProcessor")
-public class ImageValidateProcessor extends AbstractValidateProcessor {
+public class ImageValidateProcessor extends AbstractValidateProcessor<ImageCode> {
 
     @Override
-    protected void send(ServletWebRequest request, ValidateCode code) throws Exception {
-        ImageCode  imageCode = (ImageCode)code;
+    protected void send(ServletWebRequest request, ImageCode imageCode) throws Exception {
+//        ImageCode  imageCode = (ImageCode)code;
         HttpServletResponse response = request.getResponse();
         ImageIO.write(imageCode.getBufferedImage(),"JPEG",response.getOutputStream());
     }

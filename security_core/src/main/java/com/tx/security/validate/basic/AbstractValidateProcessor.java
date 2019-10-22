@@ -49,7 +49,8 @@ public abstract class AbstractValidateProcessor<C extends ValidateCode> implemen
      * @param code
      */
     protected void save2Session(ServletWebRequest request,C code){
-        String key = IValidateCodeGenerate.SESSION_CODE_KEY + getProcessorType(request);
+        String upperProcessorType = StringUtils.upperCase(getProcessorType(request));
+        String key = IValidateCodeGenerate.SESSION_CODE_KEY + upperProcessorType;
         request.getRequest().getSession().setAttribute(key,code);
     }
 

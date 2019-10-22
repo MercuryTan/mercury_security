@@ -1,7 +1,8 @@
 package com.tx.security.broswer.config;
 
 import com.tx.security.properties.MercuryProperty;
-import com.tx.security.validate.ValidateImageCodeFilter;
+import com.tx.security.validate.basic.CodeValidateConfig;
+import com.tx.security.validate.image.ImageCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,13 +35,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     MercuryProperty mercuryProperty;
 
     @Autowired
-    ValidateImageCodeFilter validateImageCodeFilter;
+    ImageCodeFilter validateImageCodeFilter;
 
     @Autowired
     DataSource dataSource;
 
     @Autowired
     UserDetailsService userDetailsService;
+
+    @Autowired
+    CodeValidateConfig codeValidateConfig;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -73,6 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/generate/*","/authentication/login",mercuryProperty.getBroswer().getLoginPage()).permitAll()
                     .anyRequest() .authenticated()
             .and()
-                .csrf().disable();
+                .csrf().disable()
+            .apply(codeValidateConfig);
     }
 }
