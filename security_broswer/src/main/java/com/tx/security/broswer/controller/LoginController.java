@@ -1,6 +1,7 @@
 package com.tx.security.broswer.controller;
 
 import com.tx.security.broswer.pojo.LoginErrorMsg;
+import com.tx.security.domain.SecurityConstants;
 import com.tx.security.properties.MercuryProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,9 +39,9 @@ public class LoginController {
      * @param  * @Param:
      * @return java.lang.String
     **/
-    @GetMapping("/authentication/login")
+    @GetMapping(SecurityConstants.DEFAULT_UN_AUTHENTICATION_URL)
     public LoginErrorMsg login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        System.out.println(mercuryProperty);
+
         String targetUrl = sessionCache.getRequest(request,response).getRedirectUrl();
         if(StringUtils.endsWithIgnoreCase(targetUrl,".html")){
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());

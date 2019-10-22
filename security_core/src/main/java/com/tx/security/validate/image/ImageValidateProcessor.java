@@ -1,7 +1,6 @@
 package com.tx.security.validate.image;
 
 import com.tx.security.domain.ImageCode;
-import com.tx.security.domain.ValidateCode;
 import com.tx.security.validate.basic.AbstractValidateProcessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;

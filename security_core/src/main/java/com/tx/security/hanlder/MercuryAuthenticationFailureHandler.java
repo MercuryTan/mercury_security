@@ -1,4 +1,4 @@
-package com.tx.security.broswer.hanlder;
+package com.tx.security.hanlder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tx.security.enumation.JsonType;
@@ -15,7 +15,7 @@ import java.io.IOException;
 
 /**
  * @author ：tx
- * @description：
+ * @description： 登录失败后的处理器
  * @modified By：
  * @version:
  */

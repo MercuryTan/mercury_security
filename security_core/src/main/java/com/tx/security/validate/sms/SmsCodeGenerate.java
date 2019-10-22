@@ -19,8 +19,8 @@ public class SmsCodeGenerate implements IValidateCodeGenerate {
     @Override
     public SmsCode generateCode() {
         //生成4位短信验证码
-        String code = RandomStringUtils.randomNumeric(4);
-        return new SmsCode(code,3600);
+        String code = RandomStringUtils.randomNumeric(mercuryProperty.getCode().getSms().getCodeLength());
+        return new SmsCode(code,mercuryProperty.getCode().getSms().getExpireTime());
     }
 
 }

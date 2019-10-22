@@ -24,7 +24,7 @@ import java.util.Set;
 
 /**
  * @author ：tx
- * @description：校验验证码
+ * @description：登录校验图片验证码
  * @modified By：
  * @version:
  */
@@ -85,7 +85,7 @@ public class ImageCodeFilter extends OncePerRequestFilter implements Initializin
     }
 
     private void validateImageCode(HttpServletRequest request) throws ImageCodeException {
-        Object sessionCodeObj = request.getSession().getAttribute(IValidateCodeGenerate.SESSION_CODE_KEY+"IMAGE");
+        Object sessionCodeObj = request.getSession().getAttribute(IValidateCodeGenerate.SESSION_CODE_KEY + "IMAGE");
         String inputCode = request.getParameter("imageCode");
 
         if (ObjectUtils.isEmpty(sessionCodeObj)) {
@@ -95,7 +95,7 @@ public class ImageCodeFilter extends OncePerRequestFilter implements Initializin
         ImageCode imageCode = (ImageCode) sessionCodeObj;
 
         if (!dateDiffer(imageCode)){
-            request.getSession().removeAttribute(IValidateCodeGenerate.SESSION_CODE_KEY+"IMAGE");
+            request.getSession().removeAttribute(IValidateCodeGenerate.SESSION_CODE_KEY + "IMAGE");
             throw new ImageCodeException("验证码失效了！");
         }
 

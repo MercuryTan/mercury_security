@@ -1,5 +1,7 @@
 package com.tx.security.properties;
 
+import com.tx.security.domain.SecurityConstants;
+
 /**
  * @author ：tx
  * @description：
@@ -11,12 +13,12 @@ public class BasicCodeProperty {
     /**
      * 验证码的长度
      */
-    private int codeLength = 4;
+    private int codeLength = SecurityConstants.CODE_LENGTH;
 
     /**
      * 验证码有效时间
      */
-    private int expireTime = 60;
+    private int expireTime = SecurityConstants.CODE_EXPIRE_TIME;
 
     /**
      * 需要校验验证码的地址

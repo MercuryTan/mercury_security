@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author ：tx
- * @description：
+ * @description：security的配置信息
  * @modified By：
  * @version:
  */
@@ -15,8 +15,14 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:mercury.properties")
 public class MercuryProperty {
 
+    /**
+     * 浏览器应用的配置信息
+    **/
     private BroswerProperty broswer = new BroswerProperty();
 
+    /**
+     * 验证码的配置信息
+     **/
     private ValidateCodeProperty code = new ValidateCodeProperty();
 
     public BroswerProperty getBroswer() {

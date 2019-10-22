@@ -1,11 +1,11 @@
-package com.tx.security.validate.basic;
+package com.tx.security.config;
+
 
 import com.tx.security.validate.image.ImageCodeFilter;
 import com.tx.security.validate.sms.SmsCodeFilter;
 import com.tx.security.validate.sms.authentication.SmsAuthenticationFilter;
 import com.tx.security.validate.sms.authentication.SmsAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
  * @version:
  */
 @Component
-public class CodeValidateConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+public class ValidateCodeConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired
     UserDetailsService userDetailsService;
@@ -34,6 +34,12 @@ public class CodeValidateConfig extends SecurityConfigurerAdapter<DefaultSecurit
 
     @Autowired
     AuthenticationFailureHandler mercuryAuthenticationFailureHandler;
+
+    @Autowired
+    ImageCodeFilter validateImageCodeFilter;
+
+    @Autowired
+    SmsCodeFilter validateSmsCodeFilter;
 
 
     @Override
@@ -48,7 +54,21 @@ public class CodeValidateConfig extends SecurityConfigurerAdapter<DefaultSecurit
         SmsAuthenticationProvider smsAuthenticationProvider = new SmsAuthenticationProvider();
         smsAuthenticationProvider.setUserDetailsService(userDetailsService);
 
-        http.authenticationProvider(smsAuthenticationProvider)
+            /**
+             * 验图形验证码
+            **/
+        http.addFilterBefore(validateImageCodeFilter,UsernamePasswordAuthenticationFilter.class)
+            /**
+             * 校验短信验证码
+             **/
+            .addFilterBefore(validateSmsCodeFilter,UsernamePasswordAuthenticationFilter.class)
+            /**
+             * 加入自定义provider到authenticationManager中
+             **/
+            .authenticationProvider(smsAuthenticationProvider)
+            /**
+             * 加入短信验证码filter==UserNameAuthenticationFilter
+             **/
             .addFilterAfter(smsAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
         ;
     }
